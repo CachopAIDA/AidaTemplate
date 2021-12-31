@@ -12,7 +12,7 @@
     <LangVersion>8</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Aida.Core.Http.Filtering.Client" Version="0.0.8-alpha" />
+    <PackageReference Include="Aida.Core.Http.Filtering.Client" Version="1.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -11,15 +11,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aida.CentralConfiguration.Client.Extensions" Version="2.0.0" />
-    <PackageReference Include="Aida.Core.Database" Version="12.2.0" />
-    <PackageReference Include="Aida.Core.Http.Api" Version="13.2.0" />
-    <PackageReference Include="Aida.Core.Http.Filtering.AspNetCore" Version="0.0.8-alpha" />
-    <PackageReference Include="Aida.Core.Logging.AppInsights" Version="12.5.2" />
-    <PackageReference Include="Aida.Core.Logging.Boot" Version="12.5.2" />
-    <PackageReference Include="Aida.Core.Logging.Boot.Extensions" Version="12.5.2" />
-    <PackageReference Include="Aida.Core.Metrics" Version="2.1.0" />
-    <PackageReference Include="Aida.Core.Metrics.HealthChecks.Prometheus.Xabaril" Version="14.0.0" />
+    <PackageReference Include="Aida.CentralConfiguration.Client.Extensions" Version="2.0.1" />
+    <PackageReference Include="Aida.Core.Database" Version="12.3.1" />
+    <PackageReference Include="Aida.Core.Http.Api" Version="13.3.1" />
+    <PackageReference Include="Aida.Core.Http.Filtering.AspNetCore" Version="1.1.1" />
+    <PackageReference Include="Aida.Core.Logging.AppInsights" Version="12.5.4" />
+    <PackageReference Include="Aida.Core.Logging.Boot" Version="12.5.4" />
+    <PackageReference Include="Aida.Core.Logging.Boot.Extensions" Version="12.5.4" />
+    <PackageReference Include="Aida.Core.Metrics" Version="2.2.0" />
+    <PackageReference Include="Aida.Core.Metrics.HealthChecks.Prometheus.Xabaril" Version="14.1.1" />
     <PackageReference Include="AspNetCore.HealthChecks.OpenIdConnectServer" Version="2.2.2" />
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="3.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.UI" Version="2.2.35" />
@@ -47,8 +47,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="prometheus-net.AspNetCore" Version="4.1.1" />
-    <PackageReference Include="Sherlock" Version="2.4.0" />
-    <PackageReference Include="Sherlock.Telemetry.AppInsights" Version="2.4.0" />
+    <PackageReference Include="Sherlock" Version="2.4.3" />
+    <PackageReference Include="Sherlock.Telemetry.AppInsights" Version="2.4.3" />
   </ItemGroup>
 
   <ItemGroup>
