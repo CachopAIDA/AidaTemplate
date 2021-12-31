@@ -1,0 +1,9 @@
+{
+  "ApiUrl": "http://localhost:50000/",
+  "IdentityServerConfig": {
+    "Authority": "https://localhost:5005/",
+    "ApiName": "NetCore31Service-api",
+    "ClientId": "Developer",
+    "ClientSecret": "Developer"
+  }
+}

@@ -1,0 +1,43 @@
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    exclude:
+      - README.md
+      - doc/*
+      - Dockerfile
+      - .gitignore
+      - azure-pipelines-docker.yml
+
+pool: 'Aida'
+
+workspace:
+    clean: all
+
+name: $(Date:yy.MM.dd.HHmm)
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: CrossCutting and Innovation/aida-templates
+
+variables:
+  - name: project-name
+    value: AidaTemplate
+
+steps:
+  - template: azuredevops-templates/netcore31-api-full-options-ci-template.yml@templates
+    parameters:
+      solutionPath: $(project-name).sln
+      projectToPublishPath: .\src\$(project-name).Api\$(project-name).Api.csproj
+      clientProjectPath: .\src\$(project-name).Api.Client\$(project-name).Api.Client.csproj
+      hasTypeScriptClient: false
+      jenkinsFilePath: Jenkinsfile-Deployment
+      hasMigrations: false
+      migrationsProjectPath: .\src\$(project-name).Migrations\$(project-name).Migrations.csproj
+      hasTranslations: false
+      xmlFilesPath: .\src\$(project-name).Api\client-app\translations
+      jsonFilesPath: .\src\$(project-name).Api\client-app\src\translations
+      zanataProjectName: ""

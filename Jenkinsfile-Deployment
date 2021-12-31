@@ -1,0 +1,82 @@
+pipeline {
+	parameters {
+    string(defaultValue: '', description: 'What release do you want to deploy?', name: 'release')
+    string(defaultValue: '', description: 'What market?', name: 'market')
+    string(defaultValue: '', description: 'What environment?', name: 'environment')
+	}
+
+  agent any
+
+  environment {
+    devMode = false
+    logLevel = "Flow"
+    product = "AidaTemplate"
+    settingsKey = "AidaTemplateApi"
+    psInvokeConfig = ""
+    credentialFile = ""
+    slackChannel = "#YOUR_SLACK_CHANNEL"
+  }
+
+  stages {
+    stage('Prerequisites'){
+      steps{
+        script {
+          psInvokeConfig = [
+            logLevel: logLevel,
+            workingDirectory: """$release""",
+            modulePath: """$release\\tools"""
+          ]
+        }
+        script {
+          credentialFile = String.format(env.CREDENTIAL_FILE_PATH_BY_ENVIRONMENT, environment)
+          if (!fileExists(credentialFile)) {
+              credentialFile = env.CREDENTIAL_FILE_PATH
+          }
+        }
+        echo "Deploying $release to $environment..."
+      }
+    }
+    stage('Distribution'){
+      steps{
+        psinvoke (
+          script: """{
+            Test-CredentialFile $credentialFile
+            Test-EnvironmentIsActiveForTheMarket $market $environment $release
+            DistributeApiRelease $market $environment $release $product $settingsKey $credentialFile
+          }""",
+          config: psInvokeConfig
+        )
+      }
+    }
+    stage('Deployment') {
+      steps{
+        psinvoke (
+          script: """{
+            DeployApiRelease $market $environment $release $settingsKey $credentialFile
+          }""",
+          config: psInvokeConfig
+        )
+      }
+    }
+  }
+
+  post {
+    always {
+      echo 'I have finished'
+    }
+    success {
+      script {
+        if (env.AIDA_NOTIFICATIONS == 'True') {
+          notify status: 'success', slackChannel: """$slackChannel""", message: """$product deployed to $market > $environment successfully :thumbsup: :monito:""", dev: devMode.toBoolean()
+        }
+      }
+    }
+    failure {
+      script {
+        if (env.AIDA_NOTIFICATIONS == 'True') {
+          notify status: 'failure', slackChannel: """$slackChannel""", message: """<${currentBuild.absoluteUrl}|${currentBuild.fullDisplayName}> $product deployment to $market > $environment :thumbsdown: has FAILED!!!""", dev: devMode.toBoolean()
+        }
+      }
+    }
+  }
+}
